@@ -92,6 +92,9 @@ See "Demo Video" above
 
 - Groq
 
+- Claude
+
+- OpenRouter
 More suggestions are welcome !
 
 ## Links

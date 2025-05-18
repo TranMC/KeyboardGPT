@@ -89,11 +89,11 @@ jobs:
           # Lấy commit message mới nhất
           git log -1 --pretty=format:"- %s" >> release_description.md
           
-          echo -e "\n## ⚙️ Thông tin build" >> release_description.md
+          echo -e "\n### ⚙️ Thông tin build" >> release_description.md
           echo "- **Phiên bản:** v$VERSION" >> release_description.md
           echo "- **Ngày phát hành:** $(date +%d/%m/%Y)" >> release_description.md
           
-          echo -e "\n## 📥 Tải về" >> release_description.md
+          echo -e "\n### 📥 Tải về" >> release_description.md
           echo "- **[⬇️ Tải về APK](https://github.com/TranMC/KeyboardGPT/releases/download/v$VERSION/KeyboardGPT.apk)** để cài đặt trực tiếp" >> release_description.md
 
           echo -e "\n---" >> release_description.md
