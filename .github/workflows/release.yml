@@ -86,13 +86,8 @@ jobs:
           echo "# 🎯 Thay đổi trong phiên bản này:" > release_description.md
           echo "" >> release_description.md
           
-          # Lấy commit messages từ tag cuối cùng đến hiện tại
-          if git describe --tags --abbrev=0 2>/dev/null; then
-            LAST_TAG=$(git describe --tags --abbrev=0)
-            git log $LAST_TAG..HEAD --pretty=format:"- %s" >> release_description.md
-          else
-            git log --pretty=format:"- %s" >> release_description.md
-          fi
+          # Lấy commit message mới nhất
+          git log -1 --pretty=format:"- %s" >> release_description.md
           
           echo -e "\n## ⚙️ Thông tin build" >> release_description.md
           echo "- **Phiên bản:** v$VERSION" >> release_description.md
