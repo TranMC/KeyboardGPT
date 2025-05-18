@@ -12,8 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KeyboardGPT"
         tools:targetApi="31"
-        android:multiArch="true"
-        android:extractNativeLibs="false">
+        android:multiArch="true">
 
         <activity android:name=".ui.DialogActivity"
             android:theme="@style/Theme.KeyboardGPT.Translucent"
@@ -31,7 +30,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="Integrate Generative AI like ChatGPT in keyboard." />
+            android:value="Cho phép nhét AI vào bàn phím - modified by TranMC" />
         <meta-data
             android:name="xposedminversion"
             android:value="93" />

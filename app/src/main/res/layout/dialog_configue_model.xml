@@ -18,10 +18,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Model" />
+    <Spinner
+        android:id="@+id/spinner_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Custom Model ID (optional)" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_model" />
+        android:id="@+id/edit_model"
+        android:hint="Enter custom model ID from OpenRouter" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -9,10 +9,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -208,9 +212,47 @@ public class DialogActivity extends Activity {
         EditText apiKeyEditText = layout.findViewById(R.id.edit_apikey);
         EditText subModelEditText = layout.findViewById(R.id.edit_model);
         EditText baseUrlEditText = layout.findViewById(R.id.edit_baseurl);
+        Spinner modelSpinner = layout.findViewById(R.id.spinner_model);
+
         apiKeyEditText.setText(apiKey);
         subModelEditText.setText(subModel);
         baseUrlEditText.setText(baseUrl);
+
+        if (mSelectedModel == LanguageModel.OpenRouter) {
+            String[] openRouterModels = {
+                "anthropic/claude-3-opus-20240229",
+                "anthropic/claude-3-sonnet-20240229",
+                "google/gemini-pro",
+                "meta-llama/llama-2-70b-chat",
+                "mistralai/mistral-7b-instruct",
+                "openai/gpt-4-turbo-preview",
+                "openai/gpt-3.5-turbo"
+            };
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_spinner_item, openRouterModels);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            modelSpinner.setAdapter(adapter);
+
+            // Set initial selection
+            int position = Arrays.asList(openRouterModels).indexOf(subModel);
+            if (position >= 0) {
+                modelSpinner.setSelection(position);
+            }
+
+            modelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    subModelEditText.setText(openRouterModels[position]);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+        } else {
+            modelSpinner.setVisibility(View.GONE);
+        }
 
         return new AlertDialog.Builder(this)
                 .setTitle(mSelectedModel.label + " configuration")
