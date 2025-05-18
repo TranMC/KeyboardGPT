@@ -28,6 +28,10 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew assembleRelease
 
+      - name: Rename APK
+        run: |
+          mv app/build/outputs/apk/release/app-debug.apk app/build/outputs/apk/release/KeyboardGPT.apk
+
       - name: Generate changelog
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3
@@ -44,7 +48,7 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          files: app/build/outputs/apk/release/app-release.apk
+          files: app/build/outputs/apk/release/KeyboardGPT.apk
           body_path: CHANGELOG.md
           generate_release_notes: true
         env:
