@@ -22,6 +22,7 @@ public class SPManagerCompat extends SPManager {
                     "Gemini",
                     "ChatGPT",
                     "Groq",
+                    "OpenRouter",
             } [index];
             LanguageModel languageModel = LanguageModel.valueOf(languageModelName);
             MainHook.log("Migrating legacy languageModel key \"" + PREF_LANGUAGE_MODEL_COMPAT + "\" with value \"" + index + "\"");

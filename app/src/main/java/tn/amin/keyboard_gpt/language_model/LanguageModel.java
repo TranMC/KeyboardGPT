@@ -10,6 +10,7 @@ public enum LanguageModel {
     ChatGPT("ChatGPT", "gpt-4o-mini", "https://api.openai.com"),
     Groq("Groq", "llama3-8b-8192", "https://api.groq.com/openai"),
     Claude("Claude", "claude-3-5-sonnet-20240620", "https://api.anthropic.com"),
+    OpenRouter("OpenRouter", "openrouter-model", "https://openrouter.ai/api/v1"),
 //    HuggingChat("Hugging Chat"),
     ;
 
