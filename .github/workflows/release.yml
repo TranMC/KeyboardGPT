@@ -28,9 +28,13 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew assembleRelease
 
+      - name: List APK files
+        run: |
+          ls -la app/build/outputs/apk/release/
+
       - name: Rename APK
         run: |
-          mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/KeyboardGPT.apk
+          mv app/build/outputs/apk/release/*.apk app/build/outputs/apk/release/KeyboardGPT.apk
 
       - name: Generate changelog
         id: changelog
