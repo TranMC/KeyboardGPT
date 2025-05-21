@@ -13,6 +13,7 @@ import android.os.Looper;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputConnection;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -286,35 +287,33 @@ public class UiInteracter {
     public void showInstructionPrefixDialog() {
         MainHook.log("UiInteracter.showInstructionPrefixDialog called");
         if (isDialogOnCooldown()) {
-            MainHook.log("Dialog is on cooldown, returning");
+            MainHook.log("Dialog is on cooldown");
             return;
         }
-        
-        post(() -> {
-            MainHook.log("Building instruction prefix dialog");
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            builder.setTitle("Instruction Prefix");
 
-            final EditText input = new EditText(mContext);
-            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-            input.setMinLines(3);
-            input.setGravity(Gravity.TOP | Gravity.START);
-            builder.setView(input);
-            
-            String currentPrefix = mSPManager.getInstructionPrefix();
-            MainHook.log("Current prefix: " + currentPrefix);
-            input.setText(currentPrefix);
+        MainHook.log("Building instruction prefix dialog");
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext, android.R.style.Theme_Material_Light_Dialog_Alert);
+        builder.setTitle("Instruction Prefix");
 
-            builder.setPositiveButton("Save", (dialog, which) -> {
-                String instruction = input.getText().toString();
-                MainHook.log("Saving new prefix: " + instruction);
-                mSPManager.setInstructionPrefix(instruction);
-            });
-            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        final EditText input = new EditText(mContext);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        String currentPrefix = mSPManager.getInstructionPrefix();
+        MainHook.log("Current prefix: " + currentPrefix);
+        input.setText(currentPrefix);
+        builder.setView(input);
 
-            MainHook.log("Showing dialog");
-            builder.show();
+        builder.setPositiveButton("Save", (dialog, which) -> {
+            String newPrefix = input.getText().toString();
+            MainHook.log("Saving new prefix: " + newPrefix);
+            mSPManager.setInstructionPrefix(newPrefix);
+            setLastDialogTime();
         });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+        MainHook.log("Showing dialog");
+        dialog.show();
     }
 }
         
