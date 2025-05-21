@@ -218,40 +218,12 @@ public class DialogActivity extends Activity {
         subModelEditText.setText(subModel);
         baseUrlEditText.setText(baseUrl);
 
-        if (mSelectedModel == LanguageModel.OpenRouter) {
-            String[] openRouterModels = {
-                "anthropic/claude-3-opus-20240229",
-                "anthropic/claude-3-sonnet-20240229",
-                "google/gemini-pro",
-                "meta-llama/llama-2-70b-chat",
-                "mistralai/mistral-7b-instruct",
-                "openai/gpt-4-turbo-preview",
-                "openai/gpt-3.5-turbo"
-            };
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_spinner_item, openRouterModels);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            modelSpinner.setAdapter(adapter);
-
-            // Set initial selection
-            int position = Arrays.asList(openRouterModels).indexOf(subModel);
-            if (position >= 0) {
-                modelSpinner.setSelection(position);
-            }
-
-            modelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    subModelEditText.setText(openRouterModels[position]);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
+        if (mSelectedModel == LanguageModel.Custom) {
+            subModelEditText.setEnabled(true);
+            baseUrlEditText.setEnabled(true);
         } else {
-            modelSpinner.setVisibility(View.GONE);
+            subModelEditText.setEnabled(false);
+            baseUrlEditText.setEnabled(false);
         }
 
         return new AlertDialog.Builder(this)

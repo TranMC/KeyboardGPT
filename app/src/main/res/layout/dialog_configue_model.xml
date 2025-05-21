@@ -26,18 +26,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Custom Model ID (optional)" />
+        android:text="Model ID" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edit_model"
-        android:hint="Enter custom model ID from OpenRouter" />
+        android:hint="Enter model ID" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Base Url" />
+        android:text="Base URL" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_baseurl" />
+        android:id="@+id/edit_baseurl"
+        android:hint="Enter base URL" />
 </LinearLayout>
