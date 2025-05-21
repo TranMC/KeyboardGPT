@@ -4,5 +4,6 @@
         <item>com.google.android.inputmethod.latin</item>
         <item>com.touchtype.swiftkey</item>
         <item>com.syntellia.fleksy.keyboard</item>
+        <item>com.vng.inputmethod.labankey</item>
     </string-array>
 </resources>

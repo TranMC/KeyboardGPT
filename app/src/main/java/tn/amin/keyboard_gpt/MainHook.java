@@ -44,6 +44,11 @@ public class MainHook implements IXposedHookLoadPackage {
                 trigger = InstructionTrigger.LineBreak;
                 hookKeyboard(lpparam);
                 break;
+            case "com.vng.inputmethod.labankey":
+                intercept = InstructionIntercept.EditTextListener;
+                trigger = InstructionTrigger.EditTextClear;
+                hookKeyboard(lpparam);
+                break;
 //            case "com.baidu.input":
 //                intercept = InstructionIntercept.TextViewSetText;
 //                trigger = InstructionTrigger.DownUpKeyEvents;
