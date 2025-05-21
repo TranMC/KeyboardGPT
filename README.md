@@ -21,7 +21,7 @@
 #### Chưa Root
 
 1. Cài đặt file apk module từ [releases](https://github.com/Mino260806/KeyboardGPT/releases/)
-2. Patch file apk bàn phím yêu thích của bạn trong LSPatch Manager và làm theo hướng dẫn
+2. Patch file apk bàn phím yêu thích của bạn trong [LSPatch Manager](https://github.com/LSPosed/LSPatch/releases/tag/v0.6) và làm theo hướng dẫn
 
 ## Hướng dẫn sử dụng
 
