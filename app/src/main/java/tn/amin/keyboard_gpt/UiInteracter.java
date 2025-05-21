@@ -279,4 +279,30 @@ public class UiInteracter {
     public boolean isEditTextOwned() {
         return mEditTextOwner != null;
     }
+
+    public void showInstructionPrefixDialog() {
+        if (mInputMethodService == null) return;
+        
+        mInputMethodService.runOnUiThread(() -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mInputMethodService);
+            builder.setTitle("Instruction Prefix");
+
+            final EditText input = new EditText(mInputMethodService);
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+            input.setMinLines(3);
+            input.setGravity(Gravity.TOP | Gravity.START);
+            builder.setView(input);
+
+            builder.setPositiveButton("Save", (dialog, which) -> {
+                String instruction = input.getText().toString();
+                if (!instruction.isEmpty()) {
+                    mSPManager.setInstructionPrefix(instruction);
+                }
+            });
+            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+            builder.show();
+        });
+    }
 }
+        

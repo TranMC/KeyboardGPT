@@ -30,7 +30,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="Cho phép nhét AI vào bàn phím - modified by TranMC" />
+            android:value="Cho phép nhét AI vào bàn phím - Modified by TranMC" />
         <meta-data
             android:name="xposedminversion"
             android:value="93" />

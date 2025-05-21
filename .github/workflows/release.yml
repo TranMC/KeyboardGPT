@@ -125,6 +125,6 @@ jobs:
         if: always()
         run: |
           STATUS="${{ job.status }}"
-          MESSAGE="🔔 *Build Status:* \`$STATUS\`\n\n📦 *Repository:* [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})\n🌿 *Branch:* \`${{ github.ref_name }}\`\n🏷️ *Version:* \`v${{ env.VERSION }}\`\n\n🔗 [View Workflow Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+          MESSAGE="🎯 *KeyboardGPT v${{ env.VERSION }}*\n\n🔔 *Build:* \`$STATUS\`\n📦 *Repo:* [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})\n🌿 *Branch:* \`${{ github.ref_name }}\`\n\n⬇️ [Download Release](${{ github.server_url }}/${{ github.repository }}/releases/tag/v${{ env.VERSION }})"
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" -d text="$MESSAGE" -d parse_mode="Markdown"
   

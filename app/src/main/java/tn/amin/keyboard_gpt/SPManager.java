@@ -28,6 +28,8 @@ public class SPManager implements ConfigInfoProvider {
 
     protected static final String PREF_GEN_AI_COMMANDS = "gen_ai_commands";
 
+    private static final String KEY_INSTRUCTION_PREFIX = "instruction_prefix";
+
     protected final SharedPreferences mSP;
 
     public SPManager(Context context) {
@@ -120,5 +122,13 @@ public class SPManager implements ConfigInfoProvider {
             bundle.putBundle(model.name(), configBundle);
         }
         return bundle;
+    }
+
+    public void setInstructionPrefix(String prefix) {
+        mSP.edit().putString(KEY_INSTRUCTION_PREFIX, prefix).apply();
+    }
+
+    public String getInstructionPrefix() {
+        return mSP.getString(KEY_INSTRUCTION_PREFIX, "");
     }
 }
