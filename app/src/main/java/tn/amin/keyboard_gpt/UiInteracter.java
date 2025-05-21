@@ -284,9 +284,14 @@ public class UiInteracter {
     }
 
     public void showInstructionPrefixDialog() {
-        if (isDialogOnCooldown()) return;
+        MainHook.log("UiInteracter.showInstructionPrefixDialog called");
+        if (isDialogOnCooldown()) {
+            MainHook.log("Dialog is on cooldown, returning");
+            return;
+        }
         
         post(() -> {
+            MainHook.log("Building instruction prefix dialog");
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setTitle("Instruction Prefix");
 
@@ -296,14 +301,18 @@ public class UiInteracter {
             input.setGravity(Gravity.TOP | Gravity.START);
             builder.setView(input);
             
-            input.setText(mSPManager.getInstructionPrefix());
+            String currentPrefix = mSPManager.getInstructionPrefix();
+            MainHook.log("Current prefix: " + currentPrefix);
+            input.setText(currentPrefix);
 
             builder.setPositiveButton("Save", (dialog, which) -> {
                 String instruction = input.getText().toString();
+                MainHook.log("Saving new prefix: " + instruction);
                 mSPManager.setInstructionPrefix(instruction);
             });
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
+            MainHook.log("Showing dialog");
             builder.show();
         });
     }

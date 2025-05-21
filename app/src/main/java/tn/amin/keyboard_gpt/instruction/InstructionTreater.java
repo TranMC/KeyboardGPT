@@ -17,6 +17,8 @@ public class InstructionTreater implements TextTreater {
         mPromptTreater = new PromptTreater(spManager, interacter, aiController);
         mCommandTreater = new CommandTreater(spManager, interacter, aiController);
         mInstructionPrefixTreater = new InstructionPrefixTreater(spManager, interacter);
+        
+        MainHook.log("InstructionTreater initialized with InstructionPrefixTreater");
     }
 
     public InstructionCategory getInstructionCategory(String text) {
@@ -24,12 +26,15 @@ public class InstructionTreater implements TextTreater {
             return InstructionCategory.None;
         }
         
+        MainHook.log("Checking instruction category for: " + text);
         for (InstructionCategory type: InstructionCategory.values()) {
             if (type.prefix != null && text.startsWith(type.prefix)) {
+                MainHook.log("Found category: " + type.name());
                 return type;
             }
         }
         
+        MainHook.log("No category found");
         return InstructionCategory.None;
     }
 
@@ -42,23 +47,31 @@ public class InstructionTreater implements TextTreater {
             return null;
         }
 
-        return text.substring(category.prefix.length()).trim();
+        String result = text.substring(category.prefix.length()).trim();
+        MainHook.log("Removed prefix, result: " + result);
+        return result;
     }
 
     public boolean isInstruction(String text) {
-        return getInstructionCategory(text) != InstructionCategory.None;
+        boolean result = getInstructionCategory(text) != InstructionCategory.None;
+        MainHook.log("isInstruction: " + result);
+        return result;
     }
 
     @Override
     public boolean treat(String text) {
+        MainHook.log("Treating instruction: " + text);
         InstructionCategory category = getInstructionCategory(text);
         String instruction = removeInstructionPrefix(text, category);
+        MainHook.log("Category: " + category.name() + ", Instruction: " + instruction);
+        
         switch (category) {
             case Prompt:
                 return mPromptTreater.treat(instruction);
             case Command:
                 return mCommandTreater.treat(instruction);
             case InstructionPrefix:
+                MainHook.log("Handling InstructionPrefix");
                 return mInstructionPrefixTreater.treat(instruction);
             case None:
                 MainHook.log("Aborting performCommand because text is not a valid instruction");
