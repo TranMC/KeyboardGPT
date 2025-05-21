@@ -6,7 +6,7 @@ public enum DialogType {
     WebSearch(false),
     EditCommandsList(false),
     EditCommand(false),
-    InstructionPrefix,
+    InstructionPrefix(false),
     ;
 
     final boolean isModelConfig;

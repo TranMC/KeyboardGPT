@@ -292,6 +292,12 @@ public class DialogActivity extends Activity {
                 broadcastIntent.putExtra(UiInteracter.EXTRA_CONFIG_LANGUAGE_MODEL, mLanguageModelsConfig);
             if (mCommands != null)
                 broadcastIntent.putExtra(UiInteracter.EXTRA_COMMAND_LIST, Commands.encodeCommands(mCommands));
+            if (dialogType == DialogType.InstructionPrefix) {
+                String newPrefix = getIntent().getStringExtra("new_prefix");
+                if (newPrefix != null) {
+                    broadcastIntent.putExtra("new_prefix", newPrefix);
+                }
+            }
 
             sendBroadcast(broadcastIntent);
             finish();

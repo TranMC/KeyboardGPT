@@ -111,6 +111,12 @@ public class UiInteracter {
                                 mConfigChangeListeners.forEach((l) -> l.onCommandsChange(commandsRaw));
                                 isCommand = true;
                                 break;
+                            case "new_prefix":
+                                String newPrefix = intent.getStringExtra("new_prefix");
+                                if (newPrefix != null) {
+                                    mSPManager.setInstructionPrefix(newPrefix);
+                                }
+                                break;
                         }
                     }
                 }
