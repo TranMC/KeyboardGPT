@@ -212,19 +212,14 @@ public class DialogActivity extends Activity {
         EditText apiKeyEditText = layout.findViewById(R.id.edit_apikey);
         EditText subModelEditText = layout.findViewById(R.id.edit_model);
         EditText baseUrlEditText = layout.findViewById(R.id.edit_baseurl);
-        Spinner modelSpinner = layout.findViewById(R.id.spinner_model);
 
         apiKeyEditText.setText(apiKey);
         subModelEditText.setText(subModel);
         baseUrlEditText.setText(baseUrl);
 
-        if (mSelectedModel == LanguageModel.Custom) {
-            subModelEditText.setEnabled(true);
-            baseUrlEditText.setEnabled(true);
-        } else {
-            subModelEditText.setEnabled(false);
-            baseUrlEditText.setEnabled(false);
-        }
+        // Enable editing for all models
+        subModelEditText.setEnabled(true);
+        baseUrlEditText.setEnabled(true);
 
         return new AlertDialog.Builder(this)
                 .setTitle(mSelectedModel.label + " configuration")

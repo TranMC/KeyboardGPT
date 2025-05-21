@@ -11,7 +11,6 @@ public enum LanguageModel {
     Groq("Groq", "llama3-8b-8192", "https://api.groq.com/openai"),
     Claude("Claude", "claude-3-5-sonnet-20240620", "https://api.anthropic.com"),
     OpenRouter("OpenRouter", "deepseek/deepseek-chat-v3-0324:free", "https://openrouter.ai/api/v1"),
-    Custom("Custom", "", ""),
     ;
 
     public final String label;
