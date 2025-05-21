@@ -125,6 +125,5 @@ jobs:
         if: always()
         run: |
           STATUS="${{ job.status }}"
-          MESSAGE="🎯 KeyboardGPT v${{ env.VERSION }}\n\n🔔 Build: $STATUS\n📦 Repo: TranMC/KeyboardGPT (https://github.com/TranMC/KeyboardGPT)\n🌿 Branch: ${{ github.ref_name }}\n\n⬇️ Download Release (https://github.com/TranMC/KeyboardGPT/releases/tag/v${{ env.VERSION }})"
-          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" -d text="$MESSAGE"
+          echo "🎯 KeyboardGPT v${{ env.VERSION }} 🔔 Build: $STATUS 📦 Repo: TranMC/KeyboardGPT (https://github.com/TranMC/KeyboardGPT) 🌿 Branch: ${{ github.ref_name }} ⬇️ Download Release (https://github.com/TranMC/KeyboardGPT/releases/tag/v${{ env.VERSION }})" | curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data-urlencode text@-
   
