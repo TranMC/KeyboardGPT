@@ -102,7 +102,7 @@ jobs:
           echo "- **Ngày phát hành:** $(date +%d/%m/%Y)" >> release_description.md
           
           echo -e "\n### 📥 Tải về" >> release_description.md
-          echo "- **[⬇️ Tải về APK](https://github.com/TranMC/KeyboardGPT/releases/download/v$VERSION/KeyboardGPT.apk)** để cài đặt trực tiếp" >> release_description.md
+          echo "- **⬇️ [Tải về APK](https://github.com/TranMC/KeyboardGPT/releases/download/v$VERSION/KeyboardGPT.apk)** để cài đặt trực tiếp" >> release_description.md
 
           echo -e "\n---" >> release_description.md
           echo "📅 Build tự động từ GitHub Actions ngày $(date +%d/%m/%Y)" >> release_description.md
