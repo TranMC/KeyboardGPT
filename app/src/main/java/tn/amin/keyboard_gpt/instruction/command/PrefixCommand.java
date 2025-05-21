@@ -2,6 +2,8 @@ package tn.amin.keyboard_gpt.instruction.command;
 
 import tn.amin.keyboard_gpt.instruction.InstructionPrefixManager;
 
+import java.util.Map;
+
 public class PrefixCommand {
     private final InstructionPrefixManager prefixManager;
 

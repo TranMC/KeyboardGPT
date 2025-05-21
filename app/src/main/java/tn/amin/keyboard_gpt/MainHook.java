@@ -146,7 +146,9 @@ public class MainHook implements IXposedHookLoadPackage {
 //                    log("sendBeforeTextChanged \"" + text + "\"");
                             if (!trigger.providesEditText) {
                                 TextView editText = (TextView) param.thisObject;
-                                brain.setEditText(editText);
+                                if (editText instanceof EditText) {
+                                    brain.setEditText((EditText) editText);
+                                }
                             }
 
                             if (brain.consumeText(String.valueOf(text))) {

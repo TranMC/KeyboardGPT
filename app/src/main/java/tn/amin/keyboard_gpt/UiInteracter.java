@@ -1,6 +1,7 @@
 package tn.amin.keyboard_gpt;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,8 @@ import android.inputmethodservice.InputMethodService;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.InputType;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
 import android.widget.EditText;
@@ -54,7 +57,7 @@ public class UiInteracter {
     public static final String EXTRA_COMMAND_INDEX = "tn.amin.keyboard_gpt.command.INDEX";
 
 
-    private final ConfigInfoProvider mConfigInfoProvider;
+    private final SPManager mSPManager;
     private final ArrayList<ConfigChangeListener> mConfigChangeListeners = new ArrayList<>();
     private final ArrayList<DialogDismissListener> mOnDismissListeners = new ArrayList<>();
 
@@ -65,9 +68,9 @@ public class UiInteracter {
     private WeakReference<TextView> mEditText = null;
     private InputMethodService mInputMethodService;
 
-    public UiInteracter(Context context, ConfigInfoProvider configInfoProvider) {
+    public UiInteracter(Context context, SPManager spManager) {
         mContext = context;
-        mConfigInfoProvider = configInfoProvider;
+        mSPManager = spManager;
     }
 
     private final BroadcastReceiver mDialogResultReceiver = new BroadcastReceiver() {
@@ -125,9 +128,9 @@ public class UiInteracter {
         Intent intent = new Intent("tn.amin.keyboard_gpt.OVERLAY");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(EXTRA_DIALOG_TYPE, DialogType.ChoseModel.name());
-        intent.putExtra(EXTRA_CONFIG_LANGUAGE_MODEL, mConfigInfoProvider.getConfigBundle());
+        intent.putExtra(EXTRA_CONFIG_LANGUAGE_MODEL, mSPManager.getConfigBundle());
         intent.putExtra(EXTRA_CONFIG_SELECTED_MODEL,
-                mConfigInfoProvider.getLanguageModel().name());
+                mSPManager.getLanguageModel().name());
 
         MainHook.log("Launching configure dialog");
         mContext.startActivity(intent);
@@ -281,23 +284,23 @@ public class UiInteracter {
     }
 
     public void showInstructionPrefixDialog() {
-        if (mInputMethodService == null) return;
+        if (isDialogOnCooldown()) return;
         
-        mInputMethodService.runOnUiThread(() -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(mInputMethodService);
+        post(() -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setTitle("Instruction Prefix");
 
-            final EditText input = new EditText(mInputMethodService);
+            final EditText input = new EditText(mContext);
             input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
             input.setMinLines(3);
             input.setGravity(Gravity.TOP | Gravity.START);
             builder.setView(input);
+            
+            input.setText(mSPManager.getInstructionPrefix());
 
             builder.setPositiveButton("Save", (dialog, which) -> {
                 String instruction = input.getText().toString();
-                if (!instruction.isEmpty()) {
-                    mSPManager.setInstructionPrefix(instruction);
-                }
+                mSPManager.setInstructionPrefix(instruction);
             });
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
