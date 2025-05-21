@@ -306,7 +306,7 @@ public class UiInteracter {
             String newPrefix = input.getText().toString();
             MainHook.log("Saving new prefix: " + newPrefix);
             mSPManager.setInstructionPrefix(newPrefix);
-            setLastDialogTime();
+            mLastDialogLaunch = System.currentTimeMillis();
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
