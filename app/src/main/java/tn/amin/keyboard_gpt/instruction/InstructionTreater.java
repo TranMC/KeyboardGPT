@@ -6,14 +6,17 @@ import tn.amin.keyboard_gpt.SPManager;
 import tn.amin.keyboard_gpt.UiInteracter;
 import tn.amin.keyboard_gpt.instruction.command.CommandTreater;
 import tn.amin.keyboard_gpt.instruction.prompt.PromptTreater;
+import tn.amin.keyboard_gpt.instruction.prefix.InstructionPrefixTreater;
 
 public class InstructionTreater implements TextTreater {
     private final CommandTreater mCommandTreater;
     private final PromptTreater mPromptTreater;
+    private final InstructionPrefixTreater mInstructionPrefixTreater;
 
     public InstructionTreater(SPManager spManager, UiInteracter interacter, GenerativeAIController aiController) {
         mPromptTreater = new PromptTreater(spManager, interacter, aiController);
         mCommandTreater = new CommandTreater(spManager, interacter, aiController);
+        mInstructionPrefixTreater = new InstructionPrefixTreater(spManager, interacter);
     }
 
     public InstructionCategory getInstructionCategory(String text) {
@@ -55,6 +58,8 @@ public class InstructionTreater implements TextTreater {
                 return mPromptTreater.treat(instruction);
             case Command:
                 return mCommandTreater.treat(instruction);
+            case InstructionPrefix:
+                return mInstructionPrefixTreater.treat(instruction);
             case None:
                 MainHook.log("Aborting performCommand because text is not a valid instruction");
                 break;
