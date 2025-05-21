@@ -2,8 +2,8 @@ package tn.amin.keyboard_gpt.instruction;
 
 public enum InstructionCategory {
     Prompt("?"),
-    Command("!"),
     InstructionPrefix("!?"),
+    Command("!"),
     None(null),
     ;
 
