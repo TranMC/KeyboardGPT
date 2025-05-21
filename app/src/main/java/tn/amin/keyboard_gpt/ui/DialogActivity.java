@@ -49,21 +49,18 @@ public class DialogActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DialogType dialogType = DialogType.valueOf(
-                getIntent().getStringExtra(UiInteracter.EXTRA_DIALOG_TYPE));
+        String dialogTypeStr = getIntent().getStringExtra(UiInteracter.EXTRA_DIALOG_TYPE);
+        if (dialogTypeStr == null) {
+            finish();
+            return;
+        }
 
-        Dialog dialog = buildDialog(dialogType);
-        showDialog(dialog, dialogType);
-    }
+        DialogType dialogType = DialogType.valueOf(dialogTypeStr);
+        Dialog dialog = null;
 
-    private Dialog buildDialog(DialogType dialogType) {
-        Dialog dialog;
         switch (dialogType) {
             case ChoseModel:
                 dialog = buildChoseModelDialog();
-                break;
-            case ConfigureModel:
-                dialog = buildConfigureModelDialog();
                 break;
             case WebSearch:
                 dialog = buildWebSearchDialog();
@@ -74,11 +71,34 @@ public class DialogActivity extends Activity {
             case EditCommand:
                 dialog = buildEditCommandDialog();
                 break;
-            default:
-                dialog = buildChoseModelDialog();
+            case InstructionPrefix:
+                dialog = buildInstructionPrefixDialog();
                 break;
         }
-        return dialog;
+
+        showDialog(dialog, dialogType);
+    }
+
+    private Dialog buildInstructionPrefixDialog() {
+        LinearLayout layout = (LinearLayout)
+                getLayoutInflater().inflate(R.layout.dialog_instruction_prefix, null);
+
+        EditText prefixEditText = layout.findViewById(R.id.edit_prefix);
+        String currentPrefix = getIntent().getStringExtra("current_prefix");
+        prefixEditText.setText(currentPrefix);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        builder.setTitle("Instruction Prefix")
+                .setView(layout)
+                .setPositiveButton("Save", (dialog, which) -> {
+                    String newPrefix = prefixEditText.getText().toString();
+                    Intent resultIntent = new Intent(UiInteracter.ACTION_DIALOG_RESULT);
+                    resultIntent.putExtra("new_prefix", newPrefix);
+                    sendBroadcast(resultIntent);
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        return builder.create();
     }
 
     private Dialog buildCommandsListDialog() {
@@ -300,6 +320,12 @@ public class DialogActivity extends Activity {
 
     private void showDialog(Dialog dialog, DialogType dialogType) {
         mLastDialogType = dialogType;
+        if (dialog == null) {
+            finish();
+            return;
+        }
+
+        dialog.setOnDismissListener(d -> finish());
         dialog.show();
     }
 }

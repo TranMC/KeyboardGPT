@@ -291,32 +291,13 @@ public class UiInteracter {
             return;
         }
 
-        MainHook.log("Building instruction prefix dialog");
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext, android.R.style.Theme_Material_Light_Dialog_Alert);
-        builder.setTitle("Instruction Prefix");
+        Intent intent = new Intent("tn.amin.keyboard_gpt.OVERLAY");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(EXTRA_DIALOG_TYPE, DialogType.InstructionPrefix.name());
+        intent.putExtra("current_prefix", mSPManager.getInstructionPrefix());
 
-        final EditText input = new EditText(mContext);
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        String currentPrefix = mSPManager.getInstructionPrefix();
-        MainHook.log("Current prefix: " + currentPrefix);
-        input.setText(currentPrefix);
-        builder.setView(input);
-
-        builder.setPositiveButton("Save", (dialog, which) -> {
-            String newPrefix = input.getText().toString();
-            MainHook.log("Saving new prefix: " + newPrefix);
-            mSPManager.setInstructionPrefix(newPrefix);
-            mLastDialogLaunch = System.currentTimeMillis();
-        });
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-
-        AlertDialog dialog = builder.create();
-        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
-        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | 
-                                  WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
-                                  WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
-        MainHook.log("Showing dialog");
-        dialog.show();
+        MainHook.log("Launching instruction prefix dialog");
+        mContext.startActivity(intent);
     }
 }
         
