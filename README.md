@@ -32,7 +32,7 @@ Mở bất kỳ vùng nhập văn bản nào (như dịch, tìm kiếm gif, v.v.
 - `!!` để cấu hình lệnh AI tùy chỉnh
 - `!{p} lệnh của bạn` để gửi một lệnh tùy chỉnh trong đó `{p}` là tiền tố bạn đã chọn
 - `!s bất kỳ thứ gì` để thực hiện tìm kiếm web
-- `!?` để tạo một hướng dẫn cụ thể nội dung do AI tạo ra
+- `!?` để tạo một hướng dẫn cụ thể nội dung do AI tạo ra (Đang thử nghiệm)
 
 
 
