@@ -14,13 +14,13 @@
 
 #### Đã Root
 
-1. Cài đặt file apk module từ [releases](https://github.com/Mino260806/KeyboardGPT/releases/)
+1. Cài đặt file apk module từ [releases](https://github.com/TranMC/KeyboardGPT/releases/)
 2. Bật module trong LSPosed và chọn bàn phím yêu thích của bạn
 3. Buộc đóng bàn phím từ cài đặt, hoặc nếu bạn không biết cách, khởi động lại điện thoại
 
 #### Chưa Root
 
-1. Cài đặt file apk module từ [releases](https://github.com/Mino260806/KeyboardGPT/releases/)
+1. Cài đặt file apk module từ [releases](https://github.com/TranMC/KeyboardGPT/releases/)
 2. Patch file apk bàn phím yêu thích của bạn trong [LSPatch Manager](https://github.com/LSPosed/LSPatch/releases/tag/v0.6) và làm theo hướng dẫn
 
 ## Hướng dẫn sử dụng
